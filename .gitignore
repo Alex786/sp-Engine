@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
-# project specific
+# VisualStudio out folder
 out/
 
 # User-specific files
