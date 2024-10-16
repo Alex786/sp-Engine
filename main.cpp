@@ -4,34 +4,54 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #include <SDL3/SDL_init.h>
-#include "include/sp.h"
+#include "include/engine_metadata.h"
+#include <stdio.h>
+
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
 
 int main(int argc, char* argv[]) {
 	// Set App Metadata
-	const char* nameOfApp = "sp Engine";
-	const char* verOfApp = "1.0.0";
-	const char* identityOfApp = "com.alexander_brown.sp_engine1";
-	const char* creatorOfApp = "Alexander Brown";
-	const char* copyrightOfApp = "Copyright (c) 2024 Alexander Brown";
-	const char* urlOfApp = "www.google.com";
-	const char* typeOfApp = "application";
 
-	
+	// class description
+	ENGINE_METADATA metadata;
 
-	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_NAME_STRING, nameOfApp);
-	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_VERSION_STRING, verOfApp);
-	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_IDENTIFIER_STRING, identityOfApp);
-	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_CREATOR_STRING, nameOfApp);
-	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_NAME_STRING, nameOfApp);
-	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_NAME_STRING, nameOfApp);
-	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_NAME_STRING, nameOfApp);
+	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_NAME_STRING, metadata.nameOfApp);
+	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_VERSION_STRING, metadata.verOfApp);
+	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_IDENTIFIER_STRING, metadata.identityOfApp);
+	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_CREATOR_STRING, metadata.creatorOfApp);
+	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_COPYRIGHT_STRING, metadata.copyrightOfApp);
+	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_URL_STRING, metadata.urlOfApp);
+	SDL_SetAppMetadataProperty(SDL_PROP_APP_METADATA_TYPE_STRING, metadata.typeOfApp);
 
 	// Init
+	// Initialize SDL
 	SDL_Init(SDL_INIT_VIDEO);
-	char d[] = "Super long message about some stuff! This is an SDL3 Window message!";
-	int sdlver = SDL_VERSION;
-	const char* sdlvertext = "";
-	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "title", d, NULL);
-	SDL_Quit;
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+		printf("SDL_Init Error: %s\n", SDL_GetError());
+		return 1;
+	}
+
+	// Create a window
+	SDL_Window* window = SDL_CreateWindow(
+		"My SDL3 Window",
+		800,
+		640,
+		SDL_WINDOW_RESIZABLE
+	);
+
+	if (window == NULL) {
+		printf("Error creating window: %s\n", SDL_GetError());
+		SDL_Quit();
+		return 1;
+	}
+
+	// Wait for 10 seconds
+	SDL_Delay(10000);
+
+	// Clean up and close
+	SDL_DestroyWindow(window);
+	SDL_Quit();
+
 	return 0;
 }

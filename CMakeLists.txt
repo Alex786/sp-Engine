@@ -34,20 +34,20 @@ if(NOT SDL3_FOUND)
 endif()
 
 # Add source to this project's executable.
-add_executable(sp-Engine "main.cpp" "include/")
+add_executable(${PROJECT_NAME} "main.cpp" "include/")
 
 # SDL3
-target_link_libraries(sp-Engine PRIVATE SDL3::SDL3)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL3::SDL3)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET sp-Engine PROPERTY CXX_STANDARD 20)
+  set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 endif()
 
 # TODO: Add tests and install targets if needed.
 
 if(WIN32)
-    add_custom_command(TARGET sp-Engine POST_BUILD
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        $<TARGET_FILE:SDL3::SDL3> $<TARGET_FILE_DIR:sp-Engine>
+        $<TARGET_FILE:SDL3::SDL3> $<TARGET_FILE_DIR:${PROJECT_NAME}>
     )
 endif()
