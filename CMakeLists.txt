@@ -11,7 +11,6 @@ endif()
 project(sp-Engine VERSION 1.0.0)
 
 # SDL3
-# Windows: add SDL3_Dir to user varaiables and point to the SDL3 folder
 find_package(SDL3 QUIET)
 
 if(SDL3_FOUND)
